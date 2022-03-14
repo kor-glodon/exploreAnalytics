@@ -1,19 +1,57 @@
 <html>
 <head>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6ZSRDVRX7"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pick a name</title>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-L6ZSRDVRX7');
+        var subjectObject = {
+          "HK": ["Kor","Kor2","Kor3","Kor4"],
+          "ID": ["Chew1","Chew2","Chew3","Chew4"]
+        }
+        window.onload = function() {
+          var subjectSel = document.getElementById("subject");
+          var chapterSel = document.getElementById("chapter");
+          for (var x in subjectObject) {
+            subjectSel.options[subjectSel.options.length] = new Option(x, x);
+          }
+          
+          subjectSel.onchange = function() {
+            //empty Chapters dropdown
+            chapterSel.length = 1;
+            //display correct values
+            var z = subjectObject[this.value];
+            for (var i = 0; i < z.length; i++) {
+              chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+            }
+          }
+        }
     </script>
-
-    <title>test embed google form & analytics</title>
 </head>
 <body>
-    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfdF-q0OKviB_21VBWs07BYgvF4fU_lWpxLVyOCtpnddUkAUg/viewform?embedded=true" style="margin: 0 auto; width: 100%; height: 700px;" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    
+    <h1>Pick which service personnel helped you</h1>
+
+    <form name="form1" id="form1" action="">
+    Branch: <select name="subject" id="subject">
+        <option value="" selected="selected">Select branch</option>
+    </select>
+    <br><br>
+    Personnel: <select name="chapter" id="chapter">
+        <option value="" selected="selected">Please select branch first</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">  
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    // Shorthand for $(document).ready();
+    $(function() {
+    $('#form1').submit(function(){
+        var person = $('#chapter').val();
+        $(this).attr('action', "https://kor-glodon.github.io/exploreAnalytics/person/" + person + ".html");
+    });
+    });
+    </script>
+
 </body>
 </html>
